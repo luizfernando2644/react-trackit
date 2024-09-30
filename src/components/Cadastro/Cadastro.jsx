@@ -1,18 +1,37 @@
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 import styled from "styled-components";
 import Logo from "../../assets/trackit-logo.png";
-import { Link } from "react-router-dom";
 
 export default function Cadastro() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [name, setName] = useState("");
+    const [image, setImage] = useState("");
+    const navigate = useNavigate();
+
+    function fazerCadastro(e) {
+        e.preventDefault();
+        const signIn = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
+        const usuario = { email, password, name, image };
+        
+        const promise = axios.post(signIn, usuario);
+        promise.then(res => navigate("/"));
+        promise.catch(err => console.log(err.response.data));
+    }
+
     return (
         <ContentContainer>
             <LogoSite>
                 <img src={Logo} alt="" />
             </LogoSite>
-            <Form>
-                <input type="email" id="email" placeholder="email" required />
-                <input type="password" id="senha" placeholder="senha" required />
-                <input type="text" id="nome" placeholder="nome" required/>
-                <input type="text" id="foto" placeholder="foto" required/>
+            <Form onSubmit={fazerCadastro}>
+                <input type="email" id="email" placeholder="email" required value={email} onChange={e => setEmail(e.target.value)} />
+                <input type="password" id="senha" placeholder="senha" required value={password} onChange={e => setPassword(e.target.value)} />
+                <input type="text" id="nome" placeholder="nome" required value={name} onChange={e => setName(e.target.value)} />
+                <input type="text" id="foto" placeholder="foto" required value={image} onChange={e => setImage(e.target.value)} />
                 <button type="submit">Cadastrar</button>
             </Form>
             <Link to={"/"}>
