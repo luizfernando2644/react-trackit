@@ -1,11 +1,22 @@
 import styled from "styled-components";
 import Logo from "../../assets/trackit-logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useState } from "react";
 
 export default function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-    function fazerLogin() {
+    function fazerLogin(e) {
+        e.preventDefault();
+        const signIn = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login";
+        const usuario = { email, password };
 
+        const promise = axios.post(signIn, usuario);
+        promise.then(res => navigate("/hoje"));
+        promise.catch(err => console.log(err.response.data));
     }
 
     return (
@@ -13,9 +24,9 @@ export default function Login() {
             <LogoSite>
                 <img src={Logo} alt="" />
             </LogoSite>
-            <Form>
-                <input type="email" id="email" placeholder="email" required />
-                <input type="password" id="" placeholder="senha" required />
+            <Form onSubmit={fazerLogin}>
+                <input type="email" id="email" placeholder="email" required value={email} onChange={e => setEmail(e.target.value)}/>
+                <input type="password" id="" placeholder="senha" required value={password} onChange={e => setPassword(e.target.value)}/>
                 <button type="submit">Entrar</button>
             </Form>
             <Link to={"/sign-up"}>

@@ -14,10 +14,10 @@ export default function Cadastro() {
 
     function fazerCadastro(e) {
         e.preventDefault();
-        const signIn = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
+        const signUp = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up";
         const usuario = { email, password, name, image };
         
-        const promise = axios.post(signIn, usuario);
+        const promise = axios.post(signUp, usuario);
         promise.then(res => navigate("/"));
         promise.catch(err => console.log(err.response.data));
     }
