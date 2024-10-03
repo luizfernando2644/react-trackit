@@ -1,25 +1,28 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Menu from "./components/Menu";
+import { AuthProvider } from "./contexts/AuthContext";
+import { ProgressProvider } from "./contexts/PercentageContext";
+import { Habits, Historic, Login, Register, Today } from "./pages";
 
-import Login from "./pages/Login/Login";
-import Cadastro from "./pages/Cadastro/Cadastro";
-import Habitos from "./pages/Habitos/Habitos";
-import Hoje from "./pages/Hoje/Hoje";
-import Historico from "./pages/Historico/Historico";
+export const pathsWithoutHeaderAndMenu = ['/', '/register'];
 
-function App() {
+export default function App() {
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/sign-up" element={<Cadastro />} />
-          <Route path="/habits" element={<Habitos />}/>
-          <Route path="/hoje" element={<Hoje />} />
-          <Route path="/historico" element={<Historico />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <AuthProvider>
+      <ProgressProvider>
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/habits" element={<Habits />} />
+            <Route path="/today" element={<Today />} />
+            <Route path="/historic" element={<Historic />} />
+          </Routes>
+          <Menu />
+        </BrowserRouter>
+      </ProgressProvider>
+    </AuthProvider>
   );
 }
-
-export default App;
