@@ -9,7 +9,7 @@ import Plus from "../../assets/img/plus.svg";
 import useAuth from "../../hooks/useAuth";
 import api from "../../services/api";
 import HabitsList from "./HabitsList";
-import CreateHabitForm from "./CreateHabitForm";
+import CreateHabitForm from "./CreateHabit";
 import useProgress from "../../hooks/useProgress";
 
 export default function Habits() {

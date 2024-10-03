@@ -8,7 +8,7 @@ export default function Header() {
   const { auth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-
+  
   if (pathsWithoutHeaderAndMenu.includes(location.pathname)) {
     return null;
   }
